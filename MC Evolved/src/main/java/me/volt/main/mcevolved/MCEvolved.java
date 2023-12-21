@@ -1,6 +1,8 @@
 package me.volt.main.mcevolved;
 
-import me.volt.main.mcevolved.managers.CountdownTimer;
+import me.volt.main.mcevolved.gamemode.GameMode;
+import me.volt.main.mcevolved.gamemode.GlobalGameMode;
+import me.volt.main.mcevolved.managers.CountdownBar;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MCEvolved extends JavaPlugin {
@@ -11,10 +13,8 @@ public final class MCEvolved extends JavaPlugin {
     }
 
     private String serverName = null;
-    private String datacenter = "US";
-    private String lobbyName = "LOBBY_1";
 
-    private CountdownTimer countdownTimer = null;
+    private CountdownBar countdownBar;
     private GameMode gameMode;
 
     private String serverStatus;
@@ -24,12 +24,11 @@ public final class MCEvolved extends JavaPlugin {
 
     public void onEnable() {
         plugin = this;
-
-        plugin.getLogger().info("MCEvolved plugin is running!");
+        plugin.getLogger().info("MC Evolved plugin is running.");
     }
 
     public void onDisable() {
-        plugin.getLogger().info("MCEvolved plugin has stopped!");
+        plugin.getLogger().info("MC Evolved plugin has stopped running.");
     }
 
     public static String getServerName() {
@@ -45,12 +44,12 @@ public final class MCEvolved extends JavaPlugin {
     }
 
     public static void startCountdown(int seconds, int minPlayers) {
-        plugin.countdownTimer = new CountdownTimer(plugin, plugin.gameMode, seconds, minPlayers);
+        plugin.countdownBar = new CountdownBar(plugin, plugin.gameMode, seconds, minPlayers);
     }
 
     public static void stopCountdown() {
-        if (plugin.countdownTimer != null)
-            plugin.countdownTimer.stopTimer();
+        if (plugin.countdownBar != null)
+            plugin.countdownBar.stopTimer();
     }
 
     public GameMode getGlobalGameMode() {

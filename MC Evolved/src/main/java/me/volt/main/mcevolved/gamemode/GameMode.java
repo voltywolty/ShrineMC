@@ -1,4 +1,4 @@
-package me.volt.main.mcevolved;
+package me.volt.main.mcevolved.gamemode;
 
 public interface GameMode {
     int getGameModeId();

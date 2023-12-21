@@ -1,47 +1,47 @@
 package me.volt.main.mcevolved.managers;
 
-import me.volt.main.mcevolved.GameMode;
 import me.volt.main.mcevolved.MCEvolved;
+import me.volt.main.mcevolved.gamemode.GameMode;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-public class CountdownTimer {
-    MCEvolved plugin;
+public class CountdownBar {
+    private MCEvolved plugin;
+    private GameMode gameMode;
 
-    GameMode gameMode;
+    private int seconds, minPlayers;
+    private Countdown countdown;
 
-    int seconds;
-
-    int minPlayers;
-
-    Countdown countdown;
-
-    class Countdown implements Runnable {
-        boolean running = true;
+    private class Countdown implements Runnable {
+        private boolean running = true;
 
         public void run() {
-            int remaining = CountdownTimer.this.seconds;
+            int remaining = CountdownBar.this.seconds;
 
             try {
                 while (remaining > 0) {
                     if (!this.running)
                         return;
-                    CountdownTimer.this.broadcastTimeRemaining(remaining);
+
+                    CountdownBar.this.broadcastTimeRemaining(remaining);
                     Thread.sleep(1000L);
                     remaining--;
                 }
             }
-            catch (Exception exception) {}
+            catch (Exception exception) {
+
+            }
 
             if (!this.running)
                 return;
 
-            Bukkit.getScheduler().scheduleSyncDelayedTask((Plugin)CountdownTimer.this.plugin, new Runnable() {
+            Bukkit.getScheduler().scheduleSyncDelayedTask((Plugin) CountdownBar.this.plugin, new Runnable() {
+                @Override
                 public void run() {
-                    CountdownTimer.this.countdownDone();
+                    CountdownBar.this.countdownComplete();
                 }
             });
         }
@@ -51,11 +51,11 @@ public class CountdownTimer {
         }
     }
 
-    public CountdownTimer(MCEvolved plugin, GameMode gameMode, int seconds, int minPlayers) {
+    public CountdownBar(MCEvolved plugin, GameMode gamemode, int seconds, int minPlayers) {
         this.plugin = plugin;
+        this.gameMode = gamemode;
         this.seconds = seconds;
         this.minPlayers = minPlayers;
-        this.gameMode = gameMode;
 
         startTimer();
     }
@@ -71,8 +71,9 @@ public class CountdownTimer {
         this.countdown.stop();
     }
 
-    void broadcastTimeRemaining(final int s) {
-        Bukkit.getScheduler().scheduleSyncDelayedTask((Plugin)this.plugin, new Runnable() {
+    private void broadcastTimeRemaining(final int s) {
+        Bukkit.getScheduler().scheduleSyncDelayedTask((Plugin) this.plugin, new Runnable() {
+            @Override
             public void run() {
                 for (Player players : Bukkit.getOnlinePlayers())
                     players.sendTitle("" + ChatColor.BLUE + ChatColor.BLUE, "", 1, 15, 1);
@@ -80,12 +81,12 @@ public class CountdownTimer {
         });
     }
 
-    void countdownDone() {
+    private void countdownComplete() {
         if (Bukkit.getOnlinePlayers().size() >= this.minPlayers)
             this.gameMode.startGame();
         else {
             // Not deprecated, it's just PaperMC
-            Bukkit.broadcastMessage("" + ChatColor.RED + "There are not enough players to start the game! The game will start when there is at least 5 players.");
+            Bukkit.broadcastMessage("" + ChatColor.RED + "There are not enough players to start the game! The game will start when there are at least " + minPlayers + " players.");
             startTimer();
         }
     }
