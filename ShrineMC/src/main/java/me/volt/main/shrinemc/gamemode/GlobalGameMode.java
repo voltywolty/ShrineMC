@@ -1,4 +1,4 @@
-package me.volt.main.mcevolved.gamemode;
+package me.volt.main.shrinemc.gamemode;
 
 public class GlobalGameMode implements GameMode {
 

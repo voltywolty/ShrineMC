@@ -1,7 +1,7 @@
-package me.volt.main.mcevolved.managers;
+package me.volt.main.shrinemc.managers;
 
-import me.volt.main.mcevolved.MCEvolved;
-import me.volt.main.mcevolved.gamemode.GameMode;
+import me.volt.main.shrinemc.ShrineMC;
+import me.volt.main.shrinemc.gamemode.GameMode;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 public class CountdownBar {
-    private MCEvolved plugin;
+    private ShrineMC plugin;
     private GameMode gameMode;
 
     private int seconds, minPlayers;
@@ -51,7 +51,7 @@ public class CountdownBar {
         }
     }
 
-    public CountdownBar(MCEvolved plugin, GameMode gamemode, int seconds, int minPlayers) {
+    public CountdownBar(ShrineMC plugin, GameMode gamemode, int seconds, int minPlayers) {
         this.plugin = plugin;
         this.gameMode = gamemode;
         this.seconds = seconds;

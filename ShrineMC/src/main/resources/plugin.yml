@@ -1,0 +1,7 @@
+name: ShrineMC
+version: '${project.version}'
+main: me.volt.main.shrinemc.ShrineMC
+api-version: 1.20
+authors: [ Volt ]
+description: The main plugin for the server ShrineMC.
+website: https://github.com/voltywolty

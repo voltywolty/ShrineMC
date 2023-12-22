@@ -1,7 +1,0 @@
-name: MC Evolved
-version: '${project.version}'
-main: me.volt.main.mcevolved.MCEvolved
-api-version: 1.20
-authors: [ Volt ]
-description: The main plugin for the server MC Evolved.
-website: https://github.com/voltywolty

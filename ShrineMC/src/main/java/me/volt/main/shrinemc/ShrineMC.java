@@ -1,14 +1,15 @@
-package me.volt.main.mcevolved;
+package me.volt.main.shrinemc;
 
-import me.volt.main.mcevolved.gamemode.GameMode;
-import me.volt.main.mcevolved.gamemode.GlobalGameMode;
-import me.volt.main.mcevolved.managers.CountdownBar;
+import me.volt.main.shrinemc.gamemode.GameMode;
+import me.volt.main.shrinemc.gamemode.GlobalGameMode;
+import me.volt.main.shrinemc.managers.CountdownBar;
+
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class MCEvolved extends JavaPlugin {
-    private static MCEvolved plugin;
+public final class ShrineMC extends JavaPlugin {
+    private static ShrineMC plugin;
 
-    public MCEvolved getInstance() {
+    public ShrineMC getInstance() {
         return plugin;
     }
 
@@ -24,11 +25,11 @@ public final class MCEvolved extends JavaPlugin {
 
     public void onEnable() {
         plugin = this;
-        plugin.getLogger().info("MC Evolved plugin is running.");
+        plugin.getLogger().info("ShrineMC plugin is running.");
     }
 
     public void onDisable() {
-        plugin.getLogger().info("MC Evolved plugin has stopped running.");
+        plugin.getLogger().info("ShrineMC plugin has stopped running.");
     }
 
     public static String getServerName() {
