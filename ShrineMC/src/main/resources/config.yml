@@ -1,0 +1,7 @@
+customItems:
+  hatSelector:
+    name: "§bOpen Hat Menu"
+    type: diamond_helmet
+    amount: 1
+    lore:
+      - "&5&oClick to open the hat menu."

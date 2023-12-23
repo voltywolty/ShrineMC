@@ -6,17 +6,17 @@
 
     <groupId>me.volt.main</groupId>
     <artifactId>ShrineMC</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <packaging>jar</packaging>
 
     <name>ShrineMC</name>
 
-    <description>The main plugin for the server ShrineMC.</description>
+    <description>This is main plugin for my server ShrineMC and how the server runs.</description>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <url>https://github.com/voltywolty</url>
+    <url>https://github.com/voltywolty/</url>
 
     <build>
         <plugins>
@@ -69,7 +69,7 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.20.4-R0.1-SNAPSHOT</version>
+            <version>1.20.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
