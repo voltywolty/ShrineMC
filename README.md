@@ -9,3 +9,4 @@ This version includes:
 - Countdown bar
 - Start and end game functions
 - Game mode types
+- Custom item manager
