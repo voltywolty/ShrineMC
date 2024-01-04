@@ -5,3 +5,17 @@ api-version: 1.20
 authors: [ Volt ]
 description: The main plugin for the server ShrineMC.
 website: https://github.com/voltywolty
+
+commands:
+  shrinemc:
+    description: The commands for ShrineMC.
+    permission: smc.admin
+    aliases: [smc]
+
+permissions:
+  smc.admin:
+    description: Permissions for ShrineMC admin commands.
+    default: op
+  smc.testing:
+    description: Permissions for experimental features.
+    default: false

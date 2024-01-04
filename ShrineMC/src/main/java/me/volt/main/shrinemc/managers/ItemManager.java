@@ -1,5 +1,6 @@
 package me.volt.main.shrinemc.managers;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -33,5 +34,29 @@ public class ItemManager {
 
             player.getInventory().addItem(customItem);
         }
+    }
+
+    public ItemStack createItem(String itemName) {
+        if (config.contains("customItems." + itemName)) {
+            String name = config.getString("customItems." + itemName + ".name");
+            Material type = Material.valueOf(config.getString("customItems." + itemName + ".type"));
+
+            int amount = config.getInt("customItems." + itemName + ".amount", 1);
+            List<String> lore = config.getStringList("customItems." + itemName + ".lore");
+
+            // NOTE - Creates custom item stack.
+            ItemStack customItem = new ItemStack(type, amount);
+            ItemMeta meta = customItem.getItemMeta();
+
+            // NOTE - Sets display name and lore using the new methods.
+            meta.setDisplayName(name);
+            meta.setLore(lore);
+
+            customItem.setItemMeta(meta);
+
+            return customItem;
+        }
+        else
+            return null;
     }
 }

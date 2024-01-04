@@ -2,22 +2,18 @@ package me.volt.main.shrinemc;
 
 import me.volt.main.shrinemc.gamemode.GameMode;
 import me.volt.main.shrinemc.gamemode.GlobalGameMode;
-import me.volt.main.shrinemc.listeners.ItemListeners;
+import me.volt.main.shrinemc.listeners.ServerListener;
+import me.volt.main.shrinemc.managers.CommandManager;
 import me.volt.main.shrinemc.managers.CountdownBar;
-
 import me.volt.main.shrinemc.managers.ItemManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class ShrineMC extends JavaPlugin {
     private static ShrineMC plugin;
-
-    public ShrineMC getInstance() {
-        return plugin;
-    }
     private ItemManager itemManager;
 
-    private String serverName = null;
+    private final String serverName = null;
 
     private CountdownBar countdownBar;
     private GameMode gameMode;
@@ -25,7 +21,7 @@ public final class ShrineMC extends JavaPlugin {
     private String serverStatus;
     private boolean serverJoinable = true;
 
-    private GlobalGameMode globalGameMode = new GlobalGameMode();
+    private final GlobalGameMode globalGameMode = new GlobalGameMode();
 
     public void onEnable() {
         plugin = this;
@@ -34,8 +30,9 @@ public final class ShrineMC extends JavaPlugin {
         saveDefaultConfig();
         itemManager = new ItemManager(getConfig());
 
-        // NOTE - Re-enable once the hat system is complete.
-        //Bukkit.getPluginManager().registerEvents(new ItemListeners(itemManager), this);
+        getCommand("shrinemc").setExecutor(new CommandManager(itemManager));
+
+        Bukkit.getPluginManager().registerEvents(new ServerListener(this, itemManager), this);
     }
 
     public void onDisable() {

@@ -4,4 +4,10 @@ customItems:
     type: diamond_helmet
     amount: 1
     lore:
-      - "&5&oClick to open the hat menu."
+      - "§5§oClick to open the hat menu."
+  santaHat:
+    name: "§cSanta §aHat"
+    type: white_wool
+    amount: 1
+    lore:
+      - "§d(Click to Wear Hat)"

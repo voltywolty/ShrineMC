@@ -7,6 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class CountdownBar {
     private ShrineMC plugin;
@@ -75,8 +77,14 @@ public class CountdownBar {
         Bukkit.getScheduler().scheduleSyncDelayedTask((Plugin) this.plugin, new Runnable() {
             @Override
             public void run() {
-                for (Player players : Bukkit.getOnlinePlayers())
+                for (Player players : Bukkit.getOnlinePlayers()) {
                     players.sendTitle("" + ChatColor.BLUE + ChatColor.BLUE, "", 1, 15, 1);
+
+                    if (s == 5)
+                        players.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 1, false));
+                    if (s == 0)
+                        players.removePotionEffect(PotionEffectType.CONFUSION);
+                }
             }
         });
     }
@@ -85,7 +93,7 @@ public class CountdownBar {
         if (Bukkit.getOnlinePlayers().size() >= this.minPlayers)
             this.gameMode.startGame();
         else {
-            // Not deprecated, it's just PaperMC
+            // NOTE - Not deprecated, it's just PaperMC.
             Bukkit.broadcastMessage("" + ChatColor.RED + "There are not enough players to start the game! The game will start when there are at least " + minPlayers + " players.");
             startTimer();
         }
