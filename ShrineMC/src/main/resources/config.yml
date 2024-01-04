@@ -1,13 +1,12 @@
-customItems:
-  hatSelector:
-    name: "§bOpen Hat Menu"
+custom-items:
+  hat_selector:
+    name: "&bOpen Hat Menu"
     type: diamond_helmet
-    amount: 1
+    hide-flags: true
     lore:
       - "§5§oClick to open the hat menu."
-  santaHat:
-    name: "§cSanta §aHat"
+  santa_hat:
+    name: "&cSanta §aHat"
     type: white_wool
-    amount: 1
     lore:
       - "§d(Click to Wear Hat)"

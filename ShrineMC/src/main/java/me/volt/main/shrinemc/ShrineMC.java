@@ -4,14 +4,17 @@ import me.volt.main.shrinemc.gamemode.GameMode;
 import me.volt.main.shrinemc.gamemode.GlobalGameMode;
 import me.volt.main.shrinemc.listeners.ServerListener;
 import me.volt.main.shrinemc.managers.CommandManager;
+import me.volt.main.shrinemc.managers.ConfigManager;
 import me.volt.main.shrinemc.managers.CountdownBar;
 import me.volt.main.shrinemc.managers.ItemManager;
+
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class ShrineMC extends JavaPlugin {
     private static ShrineMC plugin;
-    private ItemManager itemManager;
+    public ConfigManager configManager;
+    public ItemManager itemManager;
 
     private final String serverName = null;
 
@@ -27,10 +30,12 @@ public final class ShrineMC extends JavaPlugin {
         plugin = this;
         plugin.getLogger().info("ShrineMC plugin is running.");
 
-        saveDefaultConfig();
-        itemManager = new ItemManager(getConfig());
+        configManager = new ConfigManager(this);
+        configManager.loadConfig();
 
-        getCommand("shrinemc").setExecutor(new CommandManager(itemManager));
+        itemManager = new ItemManager(this);
+
+        getCommand("shrinemc").setExecutor(new CommandManager(this));
 
         Bukkit.getPluginManager().registerEvents(new ServerListener(this, itemManager), this);
     }

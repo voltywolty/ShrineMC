@@ -1,62 +1,91 @@
 package me.volt.main.shrinemc.managers;
 
-import net.kyori.adventure.text.Component;
+import me.volt.main.shrinemc.ShrineMC;
+
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
+import java.util.UUID;
 
 public class ItemManager {
-    private final FileConfiguration config;
+    private final ShrineMC plugin;
 
-    public ItemManager(FileConfiguration config) {
-        this.config = config;
+    public ItemManager(ShrineMC plugin) {
+        this.plugin = plugin;
     }
 
-    public void giveItem(Player player, String itemName) {
-        if (config.contains("customItems." + itemName)){
-            String name = config.getString("customItems." + itemName + ".name");
-            Material type = Material.valueOf(config.getString("customItems." + itemName + ".type"));
+    public ItemStack createItem(String itemName, int amount, FileConfiguration config) {
+        if (config.contains("custom-items." + itemName)) {
+            ConfigurationSection itemConfig = config.getConfigurationSection("custom-items." + itemName);
 
-            int amount = config.getInt("customItems." + itemName + ".amount", 1);
-            List<String> lore = config.getStringList("customItems." + itemName + ".lore");
+            Material type = Material.matchMaterial(itemConfig.getString("type", "").toUpperCase());
+            if (type == null) {
+                plugin.getLogger().warning("Invalid material type for item: " + itemName);
+                return null;
+            }
+
+            String name = ChatColor.translateAlternateColorCodes('&', itemConfig.getString("name", ""));
+            //int amount = itemConfig.getInt("amount", 1);
+            List<String> lore = itemConfig.getStringList("lore");
+
+            boolean unbreakable = itemConfig.getBoolean("unbreakable", false);
 
             ItemStack customItem = new ItemStack(type, amount);
             ItemMeta meta = customItem.getItemMeta();
 
-            meta.setDisplayName(name);
-            meta.setLore(lore);
+            if (meta != null) {
 
-            customItem.setItemMeta(meta);
+                meta.setDisplayName(name);
+                meta.setLore(lore);
+                meta.setUnbreakable(unbreakable);
 
-            player.getInventory().addItem(customItem);
+                applyAttributes(meta, itemConfig);
+
+                if (itemConfig.getBoolean("hide-flags", false)) {
+                    meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
+                }
+                customItem.setItemMeta(meta);
+
+                return customItem;
+            }
         }
+        return null;
     }
 
-    public ItemStack createItem(String itemName) {
-        if (config.contains("customItems." + itemName)) {
-            String name = config.getString("customItems." + itemName + ".name");
-            Material type = Material.valueOf(config.getString("customItems." + itemName + ".type"));
+    public void giveItem(Inventory inventory, String itemName, int amount, FileConfiguration config) {
+        ItemStack customItem = createItem(itemName, amount, config);
 
-            int amount = config.getInt("customItems." + itemName + ".amount", 1);
-            List<String> lore = config.getStringList("customItems." + itemName + ".lore");
+        if (customItem != null)
+            inventory.addItem(customItem);
+    }
 
-            // NOTE - Creates custom item stack.
-            ItemStack customItem = new ItemStack(type, amount);
-            ItemMeta meta = customItem.getItemMeta();
+    private void applyAttributes(ItemMeta meta, ConfigurationSection config) {
+        if (config.contains("attributes")) {
+            List<String> attributesList = config.getStringList("attributes");
 
-            // NOTE - Sets display name and lore using the new methods.
-            meta.setDisplayName(name);
-            meta.setLore(lore);
+            for (String attributeString : attributesList) {
+                String[] parts = attributeString.split(":");
+                if (parts.length == 2) {
+                    String attributeName = parts[0].toUpperCase().trim();
+                    double attributeValue = Double.parseDouble(parts[1].trim());
 
-            customItem.setItemMeta(meta);
+                    Attribute attribute = Attribute.valueOf(attributeName);
+                    AttributeModifier modifier = new AttributeModifier(UUID.randomUUID(), attributeName, attributeValue, AttributeModifier.Operation.ADD_NUMBER);
 
-            return customItem;
+                    meta.addAttributeModifier(attribute, modifier);
+                }
+                else
+                    plugin.getLogger().warning("Invalid attribute format in config.");
+            }
         }
-        else
-            return null;
     }
 }

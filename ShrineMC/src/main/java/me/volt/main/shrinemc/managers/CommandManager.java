@@ -1,5 +1,6 @@
 package me.volt.main.shrinemc.managers;
 
+import me.volt.main.shrinemc.ShrineMC;
 import me.volt.main.shrinemc.commands.SubCommand;
 import me.volt.main.shrinemc.commands.subcommands.GiveItemCommand;
 import me.volt.main.shrinemc.commands.subcommands.HelpCommand;
@@ -13,13 +14,13 @@ import java.util.ArrayList;
 
 public class CommandManager implements CommandExecutor {
     private final ArrayList<SubCommand> subCommands = new ArrayList<>();
-    private final ItemManager itemManager;
+    private final ShrineMC plugin;
 
-    public CommandManager(ItemManager itemManager) {
-        this.itemManager = itemManager;
+    public CommandManager(ShrineMC plugin) {
+        this.plugin = plugin;
 
         subCommands.add(new HelpCommand(this));
-        subCommands.add(new GiveItemCommand(itemManager));
+        subCommands.add(new GiveItemCommand(plugin));
     }
 
     @Override
