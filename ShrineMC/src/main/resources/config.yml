@@ -10,3 +10,7 @@ custom-items:
     type: white_wool
     lore:
       - "§d(Click to Wear Hat)"
+
+  game_list:
+    name: "&6Game List"
+    type: ink_sac

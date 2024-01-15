@@ -35,7 +35,7 @@ public class GiveItemCommand extends SubCommand {
             String itemName = args[1].toLowerCase();
 
             if (itemName != null) {
-                plugin.itemManager.giveItem(player.getInventory(), itemName, 1, plugin.configManager.getConfig());
+                plugin.getItemManager().giveItem(player.getInventory(), itemName, 1, plugin.getConfigManager().getConfig());
                 player.sendMessage(ChatColor.GOLD + "[" + ChatColor.YELLOW + "ShrineMC" + ChatColor.GOLD + "] " + ChatColor.WHITE + "You received " + itemName + "!");
             }
             else
