@@ -5,6 +5,7 @@ import me.volt.main.shrinemc.gamemode.GlobalGameMode;
 import me.volt.main.shrinemc.listeners.ServerListener;
 import me.volt.main.shrinemc.managers.*;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Difficulty;
 import org.bukkit.GameRule;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -43,8 +44,10 @@ public final class ShrineMC extends JavaPlugin {
         initializeManagers();
         initializeListeners();
 
-        ServerManager.getValues();
-        ServerManager.initializeScoreboard();
+        getServerManager().getValues();
+        getServerManager().initializeScoreboard();
+
+        ServerManager.setServerStatus("Starting Soon");
 
         getCommand("shrinemc").setExecutor(new CommandManager(this));
 

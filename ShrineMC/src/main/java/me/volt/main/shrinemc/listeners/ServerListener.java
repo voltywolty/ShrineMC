@@ -2,10 +2,12 @@ package me.volt.main.shrinemc.listeners;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
+
 import me.volt.main.shrinemc.ShrineMC;
 import me.volt.main.shrinemc.managers.ItemManager;
 
 import me.volt.main.shrinemc.managers.ServerManager;
+
 import net.kyori.adventure.text.Component;
 
 import org.bukkit.Bukkit;
@@ -24,8 +26,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.net.Socket;
 import java.util.ArrayList;
-
 
 public class ServerListener implements Listener {
     private final ShrineMC plugin;
@@ -103,30 +105,31 @@ public class ServerListener implements Listener {
     private void openGameListInventory(Player player) {
         Inventory gameListInv = Bukkit.createInventory(null, 9, "Game List");
 
-        ItemStack game = new ItemStack(Material.INK_SAC);
+        ItemStack game = new ItemStack(Material.RED_CONCRETE);
         game.setDurability((short) 9);
         ItemMeta gameMeta = game.getItemMeta();
-        gameMeta.setDisplayName(ChatColor.RED + "RED");
+        gameMeta.setDisplayName(ServerManager.lobbyName);
 
         ArrayList<String> gameLore = new ArrayList<>();
         gameLore.add(ChatColor.YELLOW + "Players: " + ServerManager.online);
-        gameLore.add(ChatColor.WHITE + ServerManager.mapName);
-        gameLore.add(ChatColor.WHITE + "Starting Soon");
+        gameLore.add(ChatColor.WHITE + ServerManager.serverStatus);
         gameMeta.setLore(gameLore);
 
         game.setItemMeta(gameMeta);
 
-        gameListInv.setItem(0, game);
+        if (plugin.getServerManager().isServerOnline())
+            gameListInv.setItem(0, game);
+
         player.openInventory(gameListInv);
     }
+
+
 
     @EventHandler
     public void onGameListClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
 
         if (event.getView().title().toString().contains("Game List") && event.getCurrentItem() != null && event.getSlotType() != InventoryType.SlotType.OUTSIDE) {
-            ServerManager.online++;
-
             ByteArrayDataOutput out = ByteStreams.newDataOutput();
             out.writeUTF("Connect");
             out.writeUTF("dvz");
