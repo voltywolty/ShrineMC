@@ -50,8 +50,16 @@ public class ServerManager {
         serverStatus = status;
     }
 
+    public String getServerStatus() {
+        return serverStatus;
+    }
+
     public static void setLobbyName(String name) {
         lobbyName = name;
+    }
+
+    public String getLobbyName() {
+        return lobbyName;
     }
 
     public static void sendPlayerToLobby(Player player) {

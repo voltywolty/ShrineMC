@@ -44,14 +44,14 @@ public final class ShrineMC extends JavaPlugin {
         initializeManagers();
         initializeListeners();
 
-        getServerManager().getValues();
-        getServerManager().initializeScoreboard();
+        //getServerManager().getValues();
+        //getServerManager().initializeScoreboard();
 
-        ServerManager.setServerStatus("Starting Soon");
+        //ServerManager.setServerStatus("Starting Soon");
 
         getCommand("shrinemc").setExecutor(new CommandManager(this));
 
-        initializeWorldSettings();
+        //initializeWorldSettings();
     }
 
     public void onDisable() {
@@ -67,7 +67,7 @@ public final class ShrineMC extends JavaPlugin {
     }
 
     private void initializeListeners() {
-        getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+        //getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         getServer().getPluginManager().registerEvents(new ServerListener(this, itemManager), this);
     }
 

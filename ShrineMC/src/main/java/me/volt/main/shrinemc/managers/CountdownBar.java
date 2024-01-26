@@ -40,12 +40,7 @@ public class CountdownBar {
             if (!this.running)
                 return;
 
-            Bukkit.getScheduler().scheduleSyncDelayedTask((Plugin) CountdownBar.this.plugin, new Runnable() {
-                @Override
-                public void run() {
-                    CountdownBar.this.countdownComplete();
-                }
-            });
+            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, CountdownBar.this::countdownComplete);
         }
 
         public void stop() {

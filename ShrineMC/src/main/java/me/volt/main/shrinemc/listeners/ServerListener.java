@@ -5,7 +5,6 @@ import com.google.common.io.ByteStreams;
 
 import me.volt.main.shrinemc.ShrineMC;
 import me.volt.main.shrinemc.managers.ItemManager;
-
 import me.volt.main.shrinemc.managers.ServerManager;
 
 import net.kyori.adventure.text.Component;
@@ -26,7 +25,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.net.Socket;
 import java.util.ArrayList;
 
 public class ServerListener implements Listener {
@@ -38,22 +36,6 @@ public class ServerListener implements Listener {
     public ServerListener(ShrineMC plugin, ItemManager itemManager) {
         this.plugin = plugin;
         this.itemManager = itemManager;
-    }
-
-    @EventHandler
-    private void onPlayerJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-        ItemStack gameList = plugin.getItemManager().createItem("game_list", 1, plugin.getConfigManager().getConfig());
-        ItemStack hatSelector = plugin.getItemManager().createItem("hat_selector", 1, plugin.getConfigManager().getConfig());
-
-        // TODO - Make it where they only get it in the DvZ server
-        if (player.hasPermission("smc.admin") && !player.getInventory().contains(hatSelector))
-            player.getInventory().setItem(1, hatSelector);
-
-        player.getInventory().setItem(0, gameList);
-        player.updateInventory();
-
-        player.setScoreboard(ServerManager.servers);
     }
 
     @EventHandler
@@ -111,7 +93,7 @@ public class ServerListener implements Listener {
         gameMeta.setDisplayName(ServerManager.lobbyName);
 
         ArrayList<String> gameLore = new ArrayList<>();
-        gameLore.add(ChatColor.YELLOW + "Players: " + ServerManager.online);
+        gameLore.add(ChatColor.YELLOW + "Players: " + ChatColor.GOLD + ServerManager.online);
         gameLore.add(ChatColor.WHITE + ServerManager.serverStatus);
         gameMeta.setLore(gameLore);
 
