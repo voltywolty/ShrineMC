@@ -21,11 +21,11 @@ public class CountdownBar {
         private boolean running = true;
 
         public void run() {
-            int remaining = CountdownBar.this.seconds;
+            int remaining = seconds;
 
             try {
                 while (remaining > 0) {
-                    if (!this.running)
+                    if (!running)
                         return;
 
                     CountdownBar.this.broadcastTimeRemaining(remaining);
@@ -37,7 +37,7 @@ public class CountdownBar {
 
             }
 
-            if (!this.running)
+            if (!running)
                 return;
 
             Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, CountdownBar.this::countdownComplete);
@@ -58,35 +58,32 @@ public class CountdownBar {
     }
 
     public void startTimer() {
-        this.countdown = new Countdown();
+        countdown = new Countdown();
 
-        Thread thread = new Thread(this.countdown);
+        Thread thread = new Thread(countdown);
         thread.start();
     }
 
     public void stopTimer() {
-        this.countdown.stop();
+        countdown.stop();
     }
 
     private void broadcastTimeRemaining(final int s) {
-        Bukkit.getScheduler().scheduleSyncDelayedTask((Plugin) this.plugin, new Runnable() {
-            @Override
-            public void run() {
-                for (Player players : Bukkit.getOnlinePlayers()) {
-                    players.sendTitle("" + ChatColor.BLUE + ChatColor.BLUE, "", 1, 15, 1);
+        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.sendTitle(ChatColor.BLUE + String.valueOf(s), "", 1, 15, 1);
 
-                    if (s == 5)
-                        players.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 1, false));
-                    if (s == 0)
-                        players.removePotionEffect(PotionEffectType.CONFUSION);
-                }
+                if (s == 5)
+                    players.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 1, false));
+                if (s == 0)
+                    players.removePotionEffect(PotionEffectType.CONFUSION);
             }
         });
     }
 
     private void countdownComplete() {
-        if (Bukkit.getOnlinePlayers().size() >= this.minPlayers)
-            this.gameMode.startGame();
+        if (Bukkit.getOnlinePlayers().size() >= minPlayers)
+            gameMode.startGame();
         else {
             // NOTE - Not deprecated, it's just PaperMC.
             Bukkit.broadcastMessage("" + ChatColor.RED + "There are not enough players to start the game! The game will start when there are at least " + minPlayers + " players.");
