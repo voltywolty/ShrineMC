@@ -11,4 +11,4 @@ This version includes:
 - Game mode types
 - Custom item manager
 
-- **Releases**: [![Github Releases](https://img.shields.io/github/downloads/voltywolty/ShrineMC/total.svg)](https://github.com/voltywolty/ShrineMC/releases)
+**Releases**: [![Github Releases](https://img.shields.io/github/downloads/voltywolty/ShrineMC/total.svg)](https://github.com/voltywolty/ShrineMC/releases)
