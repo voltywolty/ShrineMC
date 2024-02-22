@@ -6,15 +6,14 @@ import me.volt.main.shrinemc.gamemode.GameMode;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class CountdownBar {
-    private ShrineMC plugin;
-    private GameMode gameMode;
+    private final ShrineMC plugin;
+    private final GameMode gameMode;
 
-    private int seconds, minPlayers;
+    private final int seconds, minPlayers;
     private Countdown countdown;
 
     private class Countdown implements Runnable {
@@ -74,7 +73,7 @@ public class CountdownBar {
                 players.sendTitle(ChatColor.BLUE + String.valueOf(s), "", 1, 15, 1);
 
                 if (s == 5)
-                    players.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 1, false));
+                    players.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 1, false, false));
                 if (s == 0)
                     players.removePotionEffect(PotionEffectType.CONFUSION);
             }
@@ -85,7 +84,6 @@ public class CountdownBar {
         if (Bukkit.getOnlinePlayers().size() >= minPlayers)
             gameMode.startGame();
         else {
-            // NOTE - Not deprecated, it's just PaperMC.
             Bukkit.broadcastMessage("" + ChatColor.RED + "There are not enough players to start the game! The game will start when there are at least " + minPlayers + " players.");
             startTimer();
         }

@@ -2,12 +2,11 @@ package me.volt.main.shrinemc;
 
 import me.volt.main.shrinemc.gamemode.GameMode;
 import me.volt.main.shrinemc.gamemode.GlobalGameMode;
+import me.volt.main.shrinemc.listeners.HatListener;
+import me.volt.main.shrinemc.listeners.LoadoutListener;
 import me.volt.main.shrinemc.listeners.ServerListener;
 import me.volt.main.shrinemc.managers.*;
 
-import org.bukkit.ChatColor;
-import org.bukkit.Difficulty;
-import org.bukkit.GameRule;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class ShrineMC extends JavaPlugin {
@@ -44,14 +43,7 @@ public final class ShrineMC extends JavaPlugin {
         initializeManagers();
         initializeListeners();
 
-        //getServerManager().getValues();
-        //getServerManager().initializeScoreboard();
-
-        //ServerManager.setServerStatus("Starting Soon");
-
         getCommand("shrinemc").setExecutor(new CommandManager(this));
-
-        //initializeWorldSettings();
     }
 
     public void onDisable() {
@@ -67,17 +59,9 @@ public final class ShrineMC extends JavaPlugin {
     }
 
     private void initializeListeners() {
-        //getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-        getServer().getPluginManager().registerEvents(new ServerListener(this, itemManager), this);
-    }
-
-    private void initializeWorldSettings() {
-        getServer().getWorlds().get(0).setDifficulty(Difficulty.PEACEFUL);
-
-        getServer().getWorlds().get(0).setGameRule(GameRule.DO_WEATHER_CYCLE, false);
-        getServer().getWorlds().get(0).setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
-        getServer().getWorlds().get(0).setGameRule(GameRule.KEEP_INVENTORY, true);
-        getServer().getWorlds().get(0).setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+        getServer().getPluginManager().registerEvents(new ServerListener(this), this);
+        getServer().getPluginManager().registerEvents(new HatListener(this, getItemManager()), this);
+        getServer().getPluginManager().registerEvents(new LoadoutListener(this, getItemManager()), this);
     }
 
     public static void initializeGameMode(GameMode gameMode) {

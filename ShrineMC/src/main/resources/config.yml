@@ -4,12 +4,40 @@ custom-items:
     type: diamond_helmet
     hide-flags: true
     lore:
-      - "§5§oClick to open the hat menu."
-  santa_hat:
-    name: "&cSanta §aHat"
-    type: white_wool
+      - "&5&oClick to open the hat menu."
+  loadout_selector:
+    name: "&bOpen Loadout Menu"
+    type: book
+    hide-flags: true
     lore:
-      - "§d(Click to Wear Hat)"
+      - "&5&oClick to open the loadout menu."
+
+  pharaoh_hat:
+    name: "&bPharaoh Hat"
+    type: brown_wool
+  goggles_hat:
+    name: "&bGoggles"
+    type: gray_wool
+  warrior_hat:
+    name: "&bWarrior Cap"
+    type: light_gray_wool
+  dragons_breath_hat:
+    name: "&bDragons Breath Hat"
+    type: red_wool
+  wolf_hunter_hat:
+    name: "&bWolf Hunter Hat"
+    type: purple_wool
+  jimmy_hat:
+    name: "&bJimmy Cap"
+    hide-flags: true
+    unbreakable: true
+    type: diamond_helmet
+  dwarven_beard_hat:
+    name: "&bDwarven Beard"
+    type: yellow_stained_glass
+  santa_hat:
+    name: "&cSanta &aHat"
+    type: white_wool
 
   game_list:
     name: "&6Game List"
