@@ -2,15 +2,14 @@ package me.volt.main.shrinemc.managers;
 
 import me.volt.main.shrinemc.ShrineMC;
 
-import org.bukkit.ChatColor;
-import org.bukkit.Color;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
+import net.kyori.adventure.text.Component;
+import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -176,5 +175,24 @@ public class ItemManager {
                     plugin.getLogger().warning("Invalid enchantment format: " + enchantString);
             }
         }
+    }
+
+    public Inventory createHatInventory(Player player) {
+        Inventory hatInventory = Bukkit.createInventory(player, 9, Component.text("Select a Hat"));
+
+        hatInventory.setItem(0, createHat("pharaoh_hat"));
+        hatInventory.setItem(1, createHat("goggles_hat"));
+        hatInventory.setItem(2, createHat("warrior_hat"));
+        hatInventory.setItem(3, createHat("dragons_breath_hat"));
+        hatInventory.setItem(4, createHat("wolf_hunter_hat"));
+        hatInventory.setItem(5, createHat("jimmy_hat"));
+        hatInventory.setItem(6, createHat("dwarven_beard_hat"));
+        hatInventory.setItem(7, createHat("santa_hat"));
+
+        return hatInventory;
+    }
+
+    private ItemStack createHat(String hatName) {
+        return createItem(hatName, 1, plugin.getConfigManager().getConfig());
     }
 }

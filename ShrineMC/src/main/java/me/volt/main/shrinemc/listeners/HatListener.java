@@ -44,9 +44,9 @@ public class HatListener implements Listener {
     }
 
     @EventHandler
-    private void onPlayerJoin(PlayerJoinEvent event) {
+    public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        player.getInventory().setItem(1, hatSelector);
+        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin.getInstance(), () -> player.getInventory().setItem(1, hatSelector), 20L);
     }
 
     @EventHandler
@@ -57,9 +57,15 @@ public class HatListener implements Listener {
         if (event.getItem() == null)
             return;
 
-        if (event.getItem() != null && action.isLeftClick() || action.isRightClick()) {
+        if (action.isRightClick()) {
+            ItemStack itemInHand = player.getInventory().getItemInMainHand();
+
+            if (itemInHand.getType() == Material.DIAMOND_HELMET)
+                event.setCancelled(true);
+        }
+        else if (action.isLeftClick()) {
             if (player.getInventory().getItemInMainHand().isSimilar(hatSelector)) {
-                Inventory hatInventory = createHatInventory(player);
+                Inventory hatInventory = plugin.getItemManager().createHatInventory(player);
                 player.openInventory(hatInventory);
             }
         }
@@ -211,9 +217,9 @@ public class HatListener implements Listener {
                     event.setCurrentItem(item);
                 }
             }
-        }
 
-        event.setCancelled(true);
+            event.setCancelled(true);
+        }
     }
 
     private void hatEquipped(ItemStack item) {
@@ -223,24 +229,5 @@ public class HatListener implements Listener {
 
         meta.getPersistentDataContainer().set(new NamespacedKey(plugin, "hat_equipped"), PersistentDataType.BYTE, (byte) 1);
         item.setItemMeta(meta);
-    }
-
-    private Inventory createHatInventory(Player player) {
-        Inventory hatInventory = Bukkit.createInventory(player, 9, Component.text("Select a Hat"));
-
-        hatInventory.setItem(0, createHat("pharaoh_hat"));
-        hatInventory.setItem(1, createHat("goggles_hat"));
-        hatInventory.setItem(2, createHat("warrior_hat"));
-        hatInventory.setItem(3, createHat("dragons_breath_hat"));
-        hatInventory.setItem(4, createHat("wolf_hunter_hat"));
-        hatInventory.setItem(5, createHat("jimmy_hat"));
-        hatInventory.setItem(6, createHat("dwarven_beard_hat"));
-        hatInventory.setItem(7, createHat("santa_hat"));
-
-        return hatInventory;
-    }
-
-    private ItemStack createHat(String hatName) {
-        return itemManager.createItem(hatName, 1, plugin.getConfigManager().getConfig());
     }
 }

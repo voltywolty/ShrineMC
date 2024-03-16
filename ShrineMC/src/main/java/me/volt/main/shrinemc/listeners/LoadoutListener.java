@@ -38,8 +38,7 @@ public class LoadoutListener implements Listener {
     @EventHandler
     private void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-
-        player.getInventory().setItem(0, loadoutSelector);
+        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin.getInstance(), () -> player.getInventory().setItem(0, loadoutSelector), 20L);
     }
 
     @EventHandler

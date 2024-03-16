@@ -31,6 +31,11 @@ public class HelpCommand extends SubCommand {
     @Override
     public void perform(Player player, String[] args) {
         for (int i = 0; i < commandManager.getSubCommands().size(); i++)
-           player.sendMessage(ChatColor.GOLD + commandManager.getSubCommands().get(i).getSyntax() + " - " + commandManager.getSubCommands().get(i).getDescription());
+           player.sendMessage(ChatColor.GOLD + commandManager.getSubCommands().get(i).getSyntax() + " - " + ChatColor.RED + commandManager.getSubCommands().get(i).getDescription());
+    }
+
+    @Override
+    public boolean isAdminCommand() {
+        return false;
     }
 }

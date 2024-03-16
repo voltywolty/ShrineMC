@@ -60,8 +60,8 @@ public final class ShrineMC extends JavaPlugin {
 
     private void initializeListeners() {
         getServer().getPluginManager().registerEvents(new ServerListener(this), this);
-        getServer().getPluginManager().registerEvents(new HatListener(this, getItemManager()), this);
-        getServer().getPluginManager().registerEvents(new LoadoutListener(this, getItemManager()), this);
+        getServer().getPluginManager().registerEvents(new HatListener(this, plugin.getItemManager()), this);
+        getServer().getPluginManager().registerEvents(new LoadoutListener(this, plugin.getItemManager()), this);
     }
 
     public static void initializeGameMode(GameMode gameMode) {
