@@ -46,7 +46,7 @@ public class HatListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin.getInstance(), () -> player.getInventory().setItem(1, hatSelector), 20L);
+        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin.getInstance(), () -> player.getInventory().setItem(0, hatSelector), 20L); // Change to 1 when done with loadout upgrades
     }
 
     @EventHandler

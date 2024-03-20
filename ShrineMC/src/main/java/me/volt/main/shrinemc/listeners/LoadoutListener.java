@@ -38,7 +38,9 @@ public class LoadoutListener implements Listener {
     @EventHandler
     private void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin.getInstance(), () -> player.getInventory().setItem(0, loadoutSelector), 20L);
+
+        if (player.hasPermission("smc.testing") || player.hasPermission("smc.admin"))
+            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin.getInstance(), () -> player.getInventory().setItem(9, loadoutSelector), 20L); // Change slot back to 0 when done
     }
 
     @EventHandler
