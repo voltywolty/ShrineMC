@@ -8,12 +8,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class GiveItemCommand extends SubCommand {
-    private final ShrineMC plugin;
-
-    public GiveItemCommand(ShrineMC plugin) {
-        this.plugin = plugin;
-    }
-
     @Override
     public String getName() {
         return "give";
@@ -54,10 +48,8 @@ public class GiveItemCommand extends SubCommand {
                 }
             }
 
-            if (itemName != null) {
-                plugin.getInstance().getItemManager().giveItem(target.getInventory(), itemName, quantity, plugin.getInstance().getConfigManager().getConfig());
-                player.sendMessage(ChatColor.GOLD + "[" + ChatColor.YELLOW + "ShrineMC" + ChatColor.GOLD + "] " + ChatColor.WHITE + "Gave " + quantity + " " + itemName + " to " + target.getName());
-            }
+            ShrineMC.getItemManager().giveItem(target.getInventory(), itemName, quantity, ShrineMC.getConfigManager().getConfig());
+            player.sendMessage(ChatColor.GOLD + "[" + ChatColor.YELLOW + "ShrineMC" + ChatColor.GOLD + "] " + ChatColor.WHITE + "Gave " + quantity + " " + itemName + " to " + target.getName());
         }
         else
             player.sendMessage(ChatColor.RED + "Usage: " + getSyntax());

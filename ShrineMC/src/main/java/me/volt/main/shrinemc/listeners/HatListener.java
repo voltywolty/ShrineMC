@@ -21,32 +21,26 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 public class HatListener implements Listener {
-    private final ShrineMC plugin;
-    private final ItemManager itemManager;
-
     private final ItemStack hatSelector;
     private final ItemStack pharaohHat, gogglesHat, warriorCap, dragonsBreathHat, wolfHunterHat, jimmyCap, dwarvenBeard, santaHat;
 
-    public HatListener(ShrineMC plugin, ItemManager itemManager) {
-        this.plugin = plugin;
-        this.itemManager = itemManager;
+    public HatListener() {
+        hatSelector = ShrineMC.getItemManager().createItem("hat_selector", 1, ShrineMC.getConfigManager().getConfig());
 
-        hatSelector = plugin.getItemManager().createItem("hat_selector", 1, plugin.getConfigManager().getConfig());
-
-        pharaohHat = itemManager.createItem("pharaoh_hat", 1, plugin.getConfigManager().getConfig());
-        gogglesHat = itemManager.createItem("goggles_hat", 1, plugin.getConfigManager().getConfig());
-        warriorCap = itemManager.createItem("warrior_hat", 1, plugin.getConfigManager().getConfig());
-        dragonsBreathHat = itemManager.createItem("dragons_breath_hat", 1, plugin.getConfigManager().getConfig());
-        wolfHunterHat = itemManager.createItem("wolf_hunter_hat", 1, plugin.getConfigManager().getConfig());
-        jimmyCap = itemManager.createItem("jimmy_hat", 1, plugin.getConfigManager().getConfig());
-        dwarvenBeard = itemManager.createItem("dwarven_beard_hat", 1, plugin.getConfigManager().getConfig());
-        santaHat = itemManager.createItem("santa_hat", 1, plugin.getConfigManager().getConfig());
+        pharaohHat = ShrineMC.getItemManager().createItem("pharaoh_hat", 1, ShrineMC.getConfigManager().getConfig());
+        gogglesHat = ShrineMC.getItemManager().createItem("goggles_hat", 1, ShrineMC.getConfigManager().getConfig());
+        warriorCap = ShrineMC.getItemManager().createItem("warrior_hat", 1, ShrineMC.getConfigManager().getConfig());
+        dragonsBreathHat = ShrineMC.getItemManager().createItem("dragons_breath_hat", 1, ShrineMC.getConfigManager().getConfig());
+        wolfHunterHat = ShrineMC.getItemManager().createItem("wolf_hunter_hat", 1, ShrineMC.getConfigManager().getConfig());
+        jimmyCap = ShrineMC.getItemManager().createItem("jimmy_hat", 1, ShrineMC.getConfigManager().getConfig());
+        dwarvenBeard = ShrineMC.getItemManager().createItem("dwarven_beard_hat", 1, ShrineMC.getConfigManager().getConfig());
+        santaHat = ShrineMC.getItemManager().createItem("santa_hat", 1, ShrineMC.getConfigManager().getConfig());
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin.getInstance(), () -> player.getInventory().setItem(0, hatSelector), 20L); // Change to 1 when done with loadout upgrades
+        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(ShrineMC.getInstance(), () -> player.getInventory().setItem(0, hatSelector), 20L); // Change to 1 when done with loadout upgrades
     }
 
     @EventHandler
@@ -65,7 +59,7 @@ public class HatListener implements Listener {
         }
         else if (action.isLeftClick()) {
             if (player.getInventory().getItemInMainHand().isSimilar(hatSelector)) {
-                Inventory hatInventory = plugin.getItemManager().createHatInventory(player);
+                Inventory hatInventory = ShrineMC.getItemManager().createHatInventory(player);
                 player.openInventory(hatInventory);
             }
         }
@@ -82,7 +76,7 @@ public class HatListener implements Listener {
                 return;
 
             if (clicked.getType() == Material.PURPLE_WOOL) {
-                if (clicked.hasItemMeta() && clicked.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(plugin, "hat_equipped"), PersistentDataType.BYTE)) {
+                if (clicked.hasItemMeta() && clicked.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(ShrineMC.getInstance(), "hat_equipped"), PersistentDataType.BYTE)) {
                     player.getInventory().setHelmet(null);
                     event.setCurrentItem(wolfHunterHat.clone());
 
@@ -99,7 +93,7 @@ public class HatListener implements Listener {
                 }
             }
             else if (clicked.getType() == Material.WHITE_WOOL) {
-                if (clicked.hasItemMeta() && clicked.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(plugin, "hat_equipped"), PersistentDataType.BYTE)) {
+                if (clicked.hasItemMeta() && clicked.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(ShrineMC.getInstance(), "hat_equipped"), PersistentDataType.BYTE)) {
                     player.getInventory().setHelmet(null);
                     event.setCurrentItem(santaHat.clone());
 
@@ -116,7 +110,7 @@ public class HatListener implements Listener {
                 }
             }
             else if (clicked.getType() == Material.GRAY_WOOL) {
-                if (clicked.hasItemMeta() && clicked.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(plugin, "hat_equipped"), PersistentDataType.BYTE)) {
+                if (clicked.hasItemMeta() && clicked.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(ShrineMC.getInstance(), "hat_equipped"), PersistentDataType.BYTE)) {
                     player.getInventory().setHelmet(null);
                     event.setCurrentItem(gogglesHat.clone());
 
@@ -133,7 +127,7 @@ public class HatListener implements Listener {
                 }
             }
             else if (clicked.getType() == Material.LIGHT_GRAY_WOOL) {
-                if (clicked.hasItemMeta() && clicked.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(plugin, "hat_equipped"), PersistentDataType.BYTE)) {
+                if (clicked.hasItemMeta() && clicked.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(ShrineMC.getInstance(), "hat_equipped"), PersistentDataType.BYTE)) {
                     player.getInventory().setHelmet(null);
                     event.setCurrentItem(warriorCap.clone());
 
@@ -150,7 +144,7 @@ public class HatListener implements Listener {
                 }
             }
             else if (clicked.getType() == Material.RED_WOOL) {
-                if (clicked.hasItemMeta() && clicked.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(plugin, "hat_equipped"), PersistentDataType.BYTE)) {
+                if (clicked.hasItemMeta() && clicked.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(ShrineMC.getInstance(), "hat_equipped"), PersistentDataType.BYTE)) {
                     player.getInventory().setHelmet(null);
                     event.setCurrentItem(dragonsBreathHat.clone());
 
@@ -167,7 +161,7 @@ public class HatListener implements Listener {
                 }
             }
             else if (clicked.getType() == Material.BROWN_WOOL) {
-                if (clicked.hasItemMeta() && clicked.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(plugin, "hat_equipped"), PersistentDataType.BYTE)) {
+                if (clicked.hasItemMeta() && clicked.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(ShrineMC.getInstance(), "hat_equipped"), PersistentDataType.BYTE)) {
                     player.getInventory().setHelmet(null);
                     event.setCurrentItem(pharaohHat.clone());
 
@@ -184,7 +178,7 @@ public class HatListener implements Listener {
                 }
             }
             else if (clicked.getType() == Material.DIAMOND_HELMET) {
-                if (clicked.hasItemMeta() && clicked.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(plugin, "hat_equipped"), PersistentDataType.BYTE)) {
+                if (clicked.hasItemMeta() && clicked.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(ShrineMC.getInstance(), "hat_equipped"), PersistentDataType.BYTE)) {
                     player.getInventory().setHelmet(null);
                     event.setCurrentItem(jimmyCap.clone());
 
@@ -201,7 +195,7 @@ public class HatListener implements Listener {
                 }
             }
             else if (clicked.getType() == Material.YELLOW_STAINED_GLASS) {
-                if (clicked.hasItemMeta() && clicked.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(plugin, "hat_equipped"), PersistentDataType.BYTE)) {
+                if (clicked.hasItemMeta() && clicked.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(ShrineMC.getInstance(), "hat_equipped"), PersistentDataType.BYTE)) {
                     player.getInventory().setHelmet(null);
                     event.setCurrentItem(dwarvenBeard.clone());
 
@@ -227,7 +221,7 @@ public class HatListener implements Listener {
         meta.addEnchant(Enchantment.LUCK, 1, true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
-        meta.getPersistentDataContainer().set(new NamespacedKey(plugin, "hat_equipped"), PersistentDataType.BYTE, (byte) 1);
+        meta.getPersistentDataContainer().set(new NamespacedKey(ShrineMC.getInstance(), "hat_equipped"), PersistentDataType.BYTE, (byte) 1);
         item.setItemMeta(meta);
     }
 }

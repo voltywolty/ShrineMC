@@ -23,16 +23,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 public class LoadoutListener implements Listener {
-    private final ShrineMC plugin;
-    private final ItemManager itemManager;
 
     private final ItemStack loadoutSelector;
 
-    public LoadoutListener(ShrineMC plugin, ItemManager itemManager) {
-        this.plugin = plugin;
-        this.itemManager = itemManager;
-
-        loadoutSelector = plugin.getItemManager().createItem("loadout_selector", 1, plugin.getConfigManager().getConfig());
+    public LoadoutListener() {
+        loadoutSelector = ShrineMC.getItemManager().createItem("loadout_selector", 1, ShrineMC.getConfigManager().getConfig());
     }
 
     @EventHandler
@@ -40,7 +35,7 @@ public class LoadoutListener implements Listener {
         Player player = event.getPlayer();
 
         if (player.hasPermission("smc.testing") || player.hasPermission("smc.admin"))
-            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin.getInstance(), () -> player.getInventory().setItem(9, loadoutSelector), 20L); // Change slot back to 0 when done
+            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(ShrineMC.getInstance(), () -> player.getInventory().setItem(9, loadoutSelector), 20L); // Change slot back to 0 when done
     }
 
     @EventHandler

@@ -8,16 +8,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class ConfigManager {
-    private final ShrineMC plugin;
-
     // Files and File Configs
     private YamlConfiguration config;
     private File configFile;
     // ----------------------
-
-    public ConfigManager(ShrineMC plugin) {
-        this.plugin = plugin;
-    }
 
     public void loadConfig() {
         config = loadConfig("config.yml");
@@ -28,16 +22,16 @@ public class ConfigManager {
     }
 
     private YamlConfiguration loadConfig(String fileName) {
-        File configFile = new File(plugin.getDataFolder(), fileName);
+        File configFile = new File(ShrineMC.getInstance().getDataFolder(), fileName);
 
         if (!configFile.exists()) {
-            plugin.getLogger().warning("Config file not found! Creating a new one: " + fileName);
+            ShrineMC.getInstance().getLogger().warning("Config file not found! Creating a new one: " + fileName);
 
             try {
                 configFile.createNewFile();
             }
             catch (IOException e) {
-                plugin.getLogger().severe("Could not create " + fileName + " file!");
+                ShrineMC.getInstance().getLogger().severe("Could not create " + fileName + " file!");
                 e.printStackTrace();
             }
         }
@@ -50,16 +44,16 @@ public class ConfigManager {
     }
 
     private YamlConfiguration reloadConfig(String fileName, YamlConfiguration config) {
-        File configFile = new File(plugin.getDataFolder(), fileName);
+        File configFile = new File(ShrineMC.getInstance().getDataFolder(), fileName);
 
         if (!configFile.exists()) {
-            plugin.getLogger().warning("Config file not found! Creating a new one: " + fileName);
+            ShrineMC.getInstance().getLogger().warning("Config file not found! Creating a new one: " + fileName);
 
             try {
                 configFile.createNewFile();
             }
             catch (IOException e) {
-                plugin.getLogger().severe("Could not create " + fileName + " file!");
+                ShrineMC.getInstance().getLogger().severe("Could not create " + fileName + " file!");
                 e.printStackTrace();
             }
         }

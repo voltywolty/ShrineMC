@@ -20,13 +20,10 @@ import java.util.stream.Collectors;
 
 public class CommandManager implements CommandExecutor, TabCompleter {
     private final ArrayList<SubCommand> subCommands = new ArrayList<>();
-    private final ShrineMC plugin;
 
-    public CommandManager(ShrineMC plugin) {
-        this.plugin = plugin;
-
+    public CommandManager() {
         subCommands.add(new HelpCommand(this));
-        subCommands.add(new GiveItemCommand(plugin));
+        subCommands.add(new GiveItemCommand());
         subCommands.add(new HatCommand());
     }
 
@@ -78,7 +75,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         else if (args.length == 3) {
             if (args[0].equalsIgnoreCase("give")) {
                 List<String> items = new ArrayList<>();
-                items.addAll(plugin.getConfigManager().getConfig().getConfigurationSection("custom-items").getKeys(false).stream()
+                items.addAll(ShrineMC.getConfigManager().getConfig().getConfigurationSection("custom-items").getKeys(false).stream()
                         .collect(Collectors.toList()));
                 return items.stream()
                         .filter(item -> item.toLowerCase().startsWith(args[2].toLowerCase()))

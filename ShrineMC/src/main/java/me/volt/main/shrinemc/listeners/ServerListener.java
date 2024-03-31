@@ -22,16 +22,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 
 public class ServerListener implements Listener {
-    private final ShrineMC plugin;
-
-    public ServerListener(ShrineMC plugin) {
-        this.plugin = plugin;
-    }
-
     @EventHandler
     public void openGameList(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        ItemStack gameList = plugin.getItemManager().createItem("game_list", 1, plugin.getConfigManager().getConfig());
+        ItemStack gameList = ShrineMC.getItemManager().createItem("game_list", 1, ShrineMC.getConfigManager().getConfig());
 
         if (player.getInventory().getItemInMainHand().isSimilar(gameList))
             openGameListInventory(player);
@@ -53,7 +47,7 @@ public class ServerListener implements Listener {
 
         game.setItemMeta(gameMeta);
 
-        if (plugin.getServerManager().isServerOnline())
+        if (ShrineMC.getServerManager().isServerOnline())
             gameListInv.setItem(0, game);
 
         player.openInventory(gameListInv);
@@ -70,7 +64,7 @@ public class ServerListener implements Listener {
             out.writeUTF("Connect");
             out.writeUTF("dvz");
 
-            player.sendPluginMessage(plugin, "BungeeCord", out.toByteArray());
+            player.sendPluginMessage(ShrineMC.getInstance(), "BungeeCord", out.toByteArray());
             player.closeInventory();
 
             player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());

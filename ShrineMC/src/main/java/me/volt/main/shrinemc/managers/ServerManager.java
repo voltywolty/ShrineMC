@@ -14,18 +14,12 @@ import org.bukkit.scoreboard.*;
 import java.net.Socket;
 
 public class ServerManager {
-    private static ShrineMC plugin;
-
     private static ScoreboardManager manager;
     public static Scoreboard servers;
 
     public static String lobbyName = ChatColor.RED + "RED";
     public static String serverStatus;
     public static int online = 0;
-
-    public ServerManager(ShrineMC plugin) {
-        ServerManager.plugin = plugin;
-    }
 
     public void getValues() {
         manager = Bukkit.getScoreboardManager();
@@ -43,7 +37,7 @@ public class ServerManager {
                     game.setScore(online);
                 }
             }
-        }.runTaskTimer(plugin, 0L, 0L);
+        }.runTaskTimer(ShrineMC.getInstance(), 0L, 0L);
     }
 
     public static void setServerStatus(String status) {
@@ -67,7 +61,7 @@ public class ServerManager {
         out.writeUTF("Connect");
         out.writeUTF("lobby");
 
-        player.sendPluginMessage(plugin, "BungeeCord", out.toByteArray());
+        player.sendPluginMessage(ShrineMC.getInstance(), "BungeeCord", out.toByteArray());
     }
 
     public boolean isServerOnline() {
