@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 public class HatCommand extends SubCommand {
-    private final ShrineMC plugin = ShrineMC.getPlugin(ShrineMC.class);
 
     @Override
     public String getName() {
@@ -26,7 +25,7 @@ public class HatCommand extends SubCommand {
 
     @Override
     public void perform(Player player, String[] args) {
-        Inventory hatInventory = plugin.getItemManager().createHatInventory(player);
+        Inventory hatInventory = ShrineMC.getItemManager().createHatInventory(player);
         player.openInventory(hatInventory);
     }
 

@@ -26,19 +26,13 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class ItemManager {
-    private final ShrineMC plugin;
-
-    public ItemManager(ShrineMC plugin) {
-        this.plugin = plugin;
-    }
-
     public ItemStack createItem(String itemName, int amount, FileConfiguration config) {
         if (config.contains("custom-items." + itemName)) {
             ConfigurationSection itemConfig = config.getConfigurationSection("custom-items." + itemName);
 
             Material type = Material.matchMaterial(itemConfig.getString("type", "").toUpperCase());
             if (type == null) {
-                plugin.getLogger().warning("Invalid material type for item: " + itemName);
+                ShrineMC.getInstance().getLogger().warning("Invalid material type for item: " + itemName);
                 return null;
             }
 
@@ -65,7 +59,7 @@ public class ItemManager {
                             potionMeta.setColor(potionColor);
                         }
                         catch (NumberFormatException e) {
-                            plugin.getLogger().warning("Invalid hex color format for potion in config.");
+                            ShrineMC.getInstance().getLogger().warning("Invalid hex color format for potion in config.");
                         }
                     }
 
@@ -142,7 +136,7 @@ public class ItemManager {
                     }
                 }
                 catch (IllegalArgumentException | ClassCastException e) {
-                    plugin.getLogger().warning("Invalid attribute configuration in the list.");
+                    ShrineMC.getInstance().getLogger().warning("Invalid attribute configuration in the list.");
                 }
             }
         }
@@ -169,10 +163,10 @@ public class ItemManager {
                             meta.removeItemFlags(ItemFlag.HIDE_ENCHANTS);
                     }
                     else
-                        plugin.getLogger().warning("Invalid enchantment key: " + enchantName);
+                        ShrineMC.getInstance().getLogger().warning("Invalid enchantment key: " + enchantName);
                 }
                 else
-                    plugin.getLogger().warning("Invalid enchantment format: " + enchantString);
+                    ShrineMC.getInstance().getLogger().warning("Invalid enchantment format: " + enchantString);
             }
         }
     }
@@ -193,6 +187,6 @@ public class ItemManager {
     }
 
     private ItemStack createHat(String hatName) {
-        return createItem(hatName, 1, plugin.getConfigManager().getConfig());
+        return createItem(hatName, 1, ShrineMC.getConfigManager().getConfig());
     }
 }

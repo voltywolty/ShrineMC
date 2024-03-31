@@ -10,7 +10,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class CountdownBar {
-    private final ShrineMC plugin;
     private final GameMode gameMode;
 
     private final int seconds, minPlayers;
@@ -39,7 +38,7 @@ public class CountdownBar {
             if (!running)
                 return;
 
-            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, CountdownBar.this::countdownComplete);
+            Bukkit.getScheduler().scheduleSyncDelayedTask(ShrineMC.getInstance(), CountdownBar.this::countdownComplete);
         }
 
         public void stop() {
@@ -47,8 +46,7 @@ public class CountdownBar {
         }
     }
 
-    public CountdownBar(ShrineMC plugin, GameMode gamemode, int seconds, int minPlayers) {
-        this.plugin = plugin;
+    public CountdownBar(GameMode gamemode, int seconds, int minPlayers) {
         this.gameMode = gamemode;
         this.seconds = seconds;
         this.minPlayers = minPlayers;
@@ -68,7 +66,7 @@ public class CountdownBar {
     }
 
     private void broadcastTimeRemaining(final int s) {
-        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+        Bukkit.getScheduler().scheduleSyncDelayedTask(ShrineMC.getInstance(), () -> {
             for (Player players : Bukkit.getOnlinePlayers()) {
                 players.sendTitle(ChatColor.BLUE + String.valueOf(s), "", 1, 15, 1);
 
