@@ -1,8 +1,8 @@
 package me.volt.main.shrinemc.commands.subcommands;
 
-import me.volt.main.shrinemc.ShrineMC;
 import me.volt.main.shrinemc.commands.SubCommand;
 
+import me.volt.main.shrinemc.listeners.HatListener;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
@@ -25,7 +25,7 @@ public class HatCommand extends SubCommand {
 
     @Override
     public void perform(Player player, String[] args) {
-        Inventory hatInventory = ShrineMC.getItemManager().createHatInventory(player);
+        Inventory hatInventory = HatListener.createHatInventory(player);
         player.openInventory(hatInventory);
     }
 

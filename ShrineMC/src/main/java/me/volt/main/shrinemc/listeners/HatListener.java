@@ -40,7 +40,7 @@ public class HatListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(ShrineMC.getInstance(), () -> player.getInventory().setItem(0, hatSelector), 20L); // Change to 1 when done with loadout upgrades
+        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(ShrineMC.getInstance(), () -> player.getInventory().setItem(1, hatSelector), 20L);
     }
 
     @EventHandler
@@ -59,7 +59,7 @@ public class HatListener implements Listener {
         }
         else if (action.isLeftClick()) {
             if (player.getInventory().getItemInMainHand().isSimilar(hatSelector)) {
-                Inventory hatInventory = ShrineMC.getItemManager().createHatInventory(player);
+                Inventory hatInventory = createHatInventory(player);
                 player.openInventory(hatInventory);
             }
         }
@@ -223,5 +223,24 @@ public class HatListener implements Listener {
 
         meta.getPersistentDataContainer().set(new NamespacedKey(ShrineMC.getInstance(), "hat_equipped"), PersistentDataType.BYTE, (byte) 1);
         item.setItemMeta(meta);
+    }
+
+    public static Inventory createHatInventory(Player player) {
+        Inventory hatInventory = Bukkit.createInventory(player, 9, Component.text("Select a Hat"));
+
+        hatInventory.setItem(0, createHat("pharaoh_hat"));
+        hatInventory.setItem(1, createHat("goggles_hat"));
+        hatInventory.setItem(2, createHat("warrior_hat"));
+        hatInventory.setItem(3, createHat("dragons_breath_hat"));
+        hatInventory.setItem(4, createHat("wolf_hunter_hat"));
+        hatInventory.setItem(5, createHat("jimmy_hat"));
+        hatInventory.setItem(6, createHat("dwarven_beard_hat"));
+        hatInventory.setItem(7, createHat("santa_hat"));
+
+        return hatInventory;
+    }
+
+    private static ItemStack createHat(String hatName) {
+        return ShrineMC.getItemManager().createItem(hatName, 1, ShrineMC.getConfigManager().getConfig());
     }
 }

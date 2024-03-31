@@ -170,23 +170,4 @@ public class ItemManager {
             }
         }
     }
-
-    public Inventory createHatInventory(Player player) {
-        Inventory hatInventory = Bukkit.createInventory(player, 9, Component.text("Select a Hat"));
-
-        hatInventory.setItem(0, createHat("pharaoh_hat"));
-        hatInventory.setItem(1, createHat("goggles_hat"));
-        hatInventory.setItem(2, createHat("warrior_hat"));
-        hatInventory.setItem(3, createHat("dragons_breath_hat"));
-        hatInventory.setItem(4, createHat("wolf_hunter_hat"));
-        hatInventory.setItem(5, createHat("jimmy_hat"));
-        hatInventory.setItem(6, createHat("dwarven_beard_hat"));
-        hatInventory.setItem(7, createHat("santa_hat"));
-
-        return hatInventory;
-    }
-
-    private ItemStack createHat(String hatName) {
-        return createItem(hatName, 1, ShrineMC.getConfigManager().getConfig());
-    }
 }

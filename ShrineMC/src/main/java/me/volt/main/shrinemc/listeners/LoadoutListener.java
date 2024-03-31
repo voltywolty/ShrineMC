@@ -35,7 +35,7 @@ public class LoadoutListener implements Listener {
         Player player = event.getPlayer();
 
         if (player.hasPermission("smc.testing") || player.hasPermission("smc.admin"))
-            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(ShrineMC.getInstance(), () -> player.getInventory().setItem(9, loadoutSelector), 20L); // Change slot back to 0 when done
+            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(ShrineMC.getInstance(), () -> player.getInventory().setItem(0, loadoutSelector), 20L);
     }
 
     @EventHandler
@@ -54,9 +54,50 @@ public class LoadoutListener implements Listener {
         }
     }
 
+    @EventHandler
+    private void onLoadoutMenuClick(InventoryClickEvent event) {
+        Player player = (Player) event.getWhoClicked();
+        ItemStack clicked = event.getCurrentItem();
+
+        if (event.getView().getTitle().equals("Select a Loadout") && event.getSlotType() != InventoryType.SlotType.OUTSIDE) {
+            if (clicked == null || !clicked.hasItemMeta())
+                return;
+        }
+    }
+
     private Inventory createLoadoutInventory(Player player) {
         Inventory loadoutInventory = Bukkit.createInventory(player, 54, Component.text("Create a Loadout"));
 
+        // Torch upgrades
+        loadoutInventory.setItem(0, createLoadoutItem("torchbearer1", 1));
+        loadoutInventory.setItem(9, createLoadoutItem("torchbearer2", 2));
+        loadoutInventory.setItem(18, createLoadoutItem("torchbearer3", 3));
+
+        // Mortar upgrades
+        loadoutInventory.setItem(1, createLoadoutItem("bricklayer1", 1));
+        loadoutInventory.setItem(10, createLoadoutItem("bricklayer2", 2));
+        loadoutInventory.setItem(19, createLoadoutItem("bricklayer3", 3));
+
+        // Stone mason upgrades
+        loadoutInventory.setItem(2, createLoadoutItem("stonemason1", 1));
+        loadoutInventory.setItem(11, createLoadoutItem("stonemason2", 2));
+        loadoutInventory.setItem(20, createLoadoutItem("stonemason3", 3));
+
+        // Wiggly wrench upgrade
+        loadoutInventory.setItem(3, createLoadoutItem("wigglywrench1", 1));
+        loadoutInventory.setItem(12, createLoadoutItem("wigglywrench2", 2));
+        loadoutInventory.setItem(21, createLoadoutItem("wigglywrench3", 3));
+
+        // Bottom slots
+        loadoutInventory.setItem(45, createLoadoutItem("points_remaining", 64));
+        loadoutInventory.setItem(48, createLoadoutItem("previous_page", 1));
+        loadoutInventory.setItem(49, createLoadoutItem("reset_loadout", 1));
+        loadoutInventory.setItem(50, createLoadoutItem("next_page", 1));
+
         return loadoutInventory;
+    }
+
+    private ItemStack createLoadoutItem(String itemName, int amount) {
+        return ShrineMC.getItemManager().createItem(itemName, amount, ShrineMC.getConfigManager().getConfig());
     }
 }

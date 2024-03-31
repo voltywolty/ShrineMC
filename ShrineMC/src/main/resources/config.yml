@@ -12,6 +12,7 @@ custom-items:
     lore:
       - "&5&oClick to open the loadout menu."
 
+# HAT ITEMS
   pharaoh_hat:
     name: "&bPharaoh Hat"
     type: brown_wool
@@ -42,3 +43,90 @@ custom-items:
   game_list:
     name: "&6Game List"
     type: ink_sac
+
+# LOADOUT ITEMS
+  points_remaining:
+    name: "&6Points Remaining"
+    type: gold_ingot
+  next_page:
+    name: "&6Next Page"
+    type: melon_seeds
+  previous_page:
+    name: "&6Previous Page"
+    type: pumpkin_seeds
+  reset_loadout:
+    name: "&cReset Loadout"
+    type: barrier
+
+  torchbearer1:
+    name: "&bTorchbearer I"
+    type: torch
+    lore:
+      - "&3Spawns you with 16 torches."
+      - "&eCost: &62 Points"
+  torchbearer2:
+    name: "&bTorchbearer II"
+    type: torch
+    lore:
+      - "&3Spawns you with 32 torches."
+      - "&eCost: &64 Points"
+  torchbearer3:
+    name: "&bTorchbearer III"
+    type: torch
+    lore:
+      - "&3Spawns you with 64 torches."
+      - "&eCost: &68 Points"
+  bricklayer1:
+    name: "&bBricklayer I"
+    type: pink_dye
+    lore:
+      - "&3Spawns you with 32 mortar."
+      - "&eCost: &62 Points"
+  bricklayer2:
+    name: "&bBricklayer II"
+    type: pink_dye
+    lore:
+      - "&3Spawns you with 64 mortar."
+      - "&eCost: &64 Points"
+  bricklayer3:
+    name: "&bBricklayer III"
+    type: pink_dye
+    lore:
+      - "&3Spawns you with 128 mortar."
+      - "&eCost: &68 Points"
+  stonemason1:
+    name: "&bStonemason I"
+    type: cobblestone
+    lore:
+      - "&3Spawns you with 64 cobblestone."
+      - "&eCost: &62 Points"
+  stonemason2:
+    name: "&bStonemason II"
+    type: cobblestone
+    lore:
+      - "&3Spawns you with 128 cobblestone."
+      - "&eCost: &64 Points"
+  stonemason3:
+    name: "&bStonemason III"
+    type: cobblestone
+    lore:
+      - "&3Spawns you with 256 cobblestone."
+      - "&eCost: &68 Points"
+  wigglywrench1:
+    name: "&bWiggly Wrench I"
+    type: light_gray_dye
+    lore:
+      - "&3Spawns you with 2 wiggly wrenches."
+      - "&eCost: &62 Points"
+  wigglywrench2:
+    name: "&bWiggly Wrench II"
+    type: light_gray_dye
+    lore:
+      - "&3Spawns you with 4 wiggly wrenches."
+      - "&eCost: &68 Points"
+  wigglywrench3:
+    name: "&bWiggly Wrench III"
+    type: light_gray_dye
+    lore:
+      - "&3Spawns you with 7 wiggly wrenches."
+      - "&eCost: &612 Points"
