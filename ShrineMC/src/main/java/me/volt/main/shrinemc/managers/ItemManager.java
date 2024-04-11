@@ -94,7 +94,7 @@ public class ItemManager {
                     }
                 }
 
-                meta.setDisplayName(name);
+                meta.displayName(Component.text(name));
                 meta.setLore(translatedLore);
                 meta.setUnbreakable(unbreakable);
 

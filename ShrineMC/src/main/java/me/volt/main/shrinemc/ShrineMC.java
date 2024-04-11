@@ -3,7 +3,6 @@ package me.volt.main.shrinemc;
 import me.volt.main.shrinemc.gamemode.GameMode;
 import me.volt.main.shrinemc.gamemode.GlobalGameMode;
 import me.volt.main.shrinemc.listeners.HatListener;
-import me.volt.main.shrinemc.listeners.LoadoutListener;
 import me.volt.main.shrinemc.listeners.ServerListener;
 import me.volt.main.shrinemc.managers.*;
 
@@ -61,7 +60,6 @@ public final class ShrineMC extends JavaPlugin {
     private void initializeListeners() {
         getServer().getPluginManager().registerEvents(new ServerListener(), this);
         getServer().getPluginManager().registerEvents(new HatListener(), this);
-        getServer().getPluginManager().registerEvents(new LoadoutListener(), this);
     }
 
     public static void initializeGameMode(GameMode gameMode) {
