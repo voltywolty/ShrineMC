@@ -58,23 +58,74 @@ custom-items:
     name: "&cReset Loadout"
     type: barrier
 
+  squire_class:
+    type: music_disc_ward
+    name: "&bSquire Class"
+    hide-flags: true
+    lore:
+      - "&4This class costs &c&l64 points&4."
+      - " "
+      - "&9&oThis class will guarantee your death. You can"
+      - "&9&odo quests to get yourself more mana and also"
+      - "&9&ocontribute to the dwarves."
+  luminary_class:
+    type: music_disc_mall
+    name: "&bLuminary Class"
+    hide-flags: true
+    lore:
+      - "&4This class costs &c&l64 points&4."
+      - " "
+      - "&9&oLuminary is a special magic dwarf that can"
+      - "&9&oprotect other dwarves in combat from the monsters."
+      - "&9&oThey can use their Luminar Beacon to scare monsters away."
+      - " "
+      - "&3&lWhat Your Kit Gets:"
+      - "&6&oMystic Staff"
+      - "&6&oDwarven Shortbow"
+      - "&6&oLuminar Beacon"
+      - "&6&oHealing Ale"
+      - "&6&oDwarven Armor"
+      - "&6&oWiggly Wrench I"
+      - "&6&oBricklayer I"
+      - "&6&oTorchbearer III"
+      - "&6&oStone Mason I"
+  warrior_class:
+    type: music_disc_blocks
+    name: "&bWarrior Class"
+    hide-flags: true
+    lore:
+      - "&4This class costs &c&l64 points&4."
+      - " "
+      - "&9&oWarriors are the fighters of the front line."
+      - "&9&oThey wield a powerful sword. This sword allows the player to dash."
+      - " "
+      - "&3&lWhat Your Kit Gets:"
+      - "&6&oGreater Runeblade"
+      - "&6&oDragonskin Bow"
+      - "&6&oJimmy Juice"
+      - "&6&oRuneblessed Armor"
+      - "&6&oWiggly Wrench I"
+      - "&6&oBricklayer II"
+      - "&6&oTorchbearer II"
+      - "&6&oStone Mason II"
+
   torchbearer1:
     name: "&bTorchbearer I"
     type: torch
     lore:
-      - "&3Spawns you with 16 torches."
+      - "&3Spawns you with 32 torches."
       - "&eCost: &62 Points"
   torchbearer2:
     name: "&bTorchbearer II"
     type: torch
     lore:
-      - "&3Spawns you with 32 torches."
+      - "&3Spawns you with 64 torches."
       - "&eCost: &64 Points"
   torchbearer3:
     name: "&bTorchbearer III"
     type: torch
     lore:
-      - "&3Spawns you with 64 torches."
+      - "&3Spawns you with 128 torches."
       - "&eCost: &68 Points"
   bricklayer1:
     name: "&bBricklayer I"

@@ -37,11 +37,11 @@ public class HatListener implements Listener {
         santaHat = ShrineMC.getItemManager().createItem("santa_hat", 1, ShrineMC.getConfigManager().getConfig());
     }
 
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(ShrineMC.getInstance(), () -> player.getInventory().setItem(1, hatSelector), 20L);
-    }
+//    @EventHandler
+//    public void onPlayerJoin(PlayerJoinEvent event) {
+//        Player player = event.getPlayer();
+//        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(ShrineMC.getInstance(), () -> player.getInventory().setItem(1, hatSelector), 20L);
+//    }
 
     @EventHandler
     private void onLeftClick(PlayerInteractEvent event) {

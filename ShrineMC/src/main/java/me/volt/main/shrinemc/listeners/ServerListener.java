@@ -53,8 +53,6 @@ public class ServerListener implements Listener {
         player.openInventory(gameListInv);
     }
 
-
-
     @EventHandler
     public void onGameListClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
